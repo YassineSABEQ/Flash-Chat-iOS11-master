@@ -8,6 +8,7 @@
 
 import UIKit
 import Firebase
+import CoreData
 import ChameleonFramework
 
 class ChatViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate {
@@ -62,7 +63,7 @@ class ChatViewController: UIViewController, UITableViewDelegate, UITableViewData
         cell.senderUsername.text = messageArray[indexPath.row].sender
         cell.avatarImageView.image = UIImage(named: "egg")
         
-        if cell.senderUsername.text == Auth.auth().currentUser?.email as String! {
+        if cell.senderUsername.text == Auth.auth().currentUser?.email as String? {
             
             cell.avatarImageView.backgroundColor = UIColor.flatMint()
             cell.messageBackground.backgroundColor = UIColor.flatSkyBlue()
@@ -161,19 +162,17 @@ class ChatViewController: UIViewController, UITableViewDelegate, UITableViewData
             let sender = snapShotValue["Sender"]!
             
             let message = Message()
+            
             message.messageBody = text
             message.sender = sender
             
             self.messageArray.append(message)
-            self.configureTableView()
-            self.messageTableView.reloadData()
             
-            print(text,sender)
+            self.configureTableView()
+            
+            self.messageTableView.reloadData()
         }
     }
-    
-
-    
     
     
     @IBAction func logOutPressed(_ sender: AnyObject) {

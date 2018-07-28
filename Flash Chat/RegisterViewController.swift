@@ -46,9 +46,6 @@ class RegisterViewController: UIViewController {
             }
         }
         
-
-        
-        
     } 
     
     
